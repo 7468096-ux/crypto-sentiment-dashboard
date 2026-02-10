@@ -1,0 +1,27 @@
+{
+  "date": "2026-02-10",
+  "overall_sentiment": "bullish",
+  "confidence": 8,
+  "key_signals": [
+    "Fear & Greed Index at 9 (Extreme Fear) - historically optimal buy zone",
+    "Whale accumulation up 21% post-selloff",
+    "ETF inflows record $1.42B, single day record $844M",
+    "BTC stabilizing above $68K after correction from $100K",
+    "Fed expected to cut rates to 3-3.25%"
+  ],
+  "whale_activity": "Strong accumulation phase. Large addresses increasing positions during fear. +21% accumulation activity in February 2026.",
+  "institutional_flow": "Positive. BlackRock and Fidelity ETFs seeing massive inflows. $1.42B total, with record single-day inflow of $844M. Institutions buying the dip.",
+  "macro_factors": [
+    "Fed rate cuts expected (3-3.25% target)",
+    "Inflation trending down to 2.8% by Q4 2026",
+    "Risk-on environment developing"
+  ],
+  "sources": [
+    "CoinMarketCap",
+    "Alternative.me Fear & Greed API",
+    "ainvest.com whale analysis",
+    "iShares Fed Outlook 2026",
+    "JP Morgan inflation outlook"
+  ],
+  "recommendation": "Current extreme fear (9/100) combined with whale accumulation and institutional inflows suggests this is a favorable entry point. Historical data shows extreme fear readings below 10 have preceded significant rallies. Consider dollar-cost averaging during this accumulation phase."
+}

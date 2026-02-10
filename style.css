@@ -1,0 +1,264 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-dark: #0a0a0a;
+    --bg-card: #1a1a1a;
+    --bg-card-hover: #252525;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-green: #00ff88;
+    --accent-red: #ff3366;
+    --accent-yellow: #ffaa00;
+    --border-color: #333;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.last-update {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Hero Card - Fear & Greed + BTC Price */
+.hero-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* Gauge */
+.gauge-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.gauge {
+    max-width: 300px;
+    margin: 0 auto 1rem;
+}
+
+.gauge svg {
+    width: 100%;
+    height: auto;
+}
+
+.gauge-value {
+    text-align: center;
+}
+
+#fearGreedValue {
+    font-size: 4rem;
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+}
+
+.gauge-label {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* BTC Price */
+.btc-price {
+    text-align: center;
+}
+
+.btc-price h3 {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.price {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent-green);
+}
+
+/* Sentiment Badge */
+.sentiment-badge {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+}
+
+.badge.bullish {
+    background: var(--accent-green);
+    color: var(--bg-dark);
+}
+
+.badge.bearish {
+    background: var(--accent-red);
+    color: var(--text-primary);
+}
+
+.badge.neutral {
+    background: var(--accent-yellow);
+    color: var(--bg-dark);
+}
+
+/* Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.signal-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.signal-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-4px);
+    border-color: var(--accent-green);
+}
+
+.signal-card h3 {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.signal-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.signal-card .signal-label {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.signal-label.buy {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--accent-green);
+}
+
+.signal-label.accumulation {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--accent-green);
+}
+
+.signal-label.institutional-buying {
+    background: rgba(255, 170, 0, 0.2);
+    color: var(--accent-yellow);
+}
+
+.signal-label.risk-on {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--accent-green);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .hero-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .gauge {
+        max-width: 250px;
+    }
+
+    #fearGreedValue {
+        font-size: 3rem;
+    }
+
+    .price {
+        font-size: 2.5rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem 0.75rem;
+    }
+
+    header h1 {
+        font-size: 1.75rem;
+    }
+
+    .hero-card {
+        padding: 1.5rem;
+    }
+
+    .signal-card {
+        padding: 1.25rem;
+    }
+}

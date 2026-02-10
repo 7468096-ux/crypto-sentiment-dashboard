@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Sentiment Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Crypto Sentiment Dashboard</h1>
+            <p class="last-update">Last Update: <span id="lastUpdate">Loading...</span></p>
+        </header>
+
+        <div class="hero-card">
+            <div class="gauge-container">
+                <h2>Fear & Greed Index</h2>
+                <div class="gauge">
+                    <svg viewBox="0 0 200 120" id="gaugeSvg">
+                        <!-- Background arc -->
+                        <path d="M 20 100 A 80 80 0 0 1 180 100" 
+                              fill="none" 
+                              stroke="#2a2a2a" 
+                              stroke-width="20" 
+                              stroke-linecap="round"/>
+                        <!-- Colored arc (will be drawn by JS) -->
+                        <path id="gaugeArc" 
+                              d="M 20 100 A 80 80 0 0 1 180 100" 
+                              fill="none" 
+                              stroke-width="20" 
+                              stroke-linecap="round"/>
+                        <!-- Needle -->
+                        <line id="gaugeNeedle" 
+                              x1="100" y1="100" 
+                              x2="100" y2="30" 
+                              stroke="#fff" 
+                              stroke-width="3" 
+                              stroke-linecap="round"/>
+                        <circle cx="100" cy="100" r="5" fill="#fff"/>
+                    </svg>
+                </div>
+                <div class="gauge-value">
+                    <span id="fearGreedValue">--</span>
+                    <span id="fearGreedLabel" class="gauge-label">Loading...</span>
+                </div>
+            </div>
+            
+            <div class="btc-price">
+                <h3>Bitcoin Price</h3>
+                <p class="price" id="btcPrice">$--</p>
+            </div>
+        </div>
+
+        <div class="sentiment-badge">
+            <span>Overall Sentiment:</span>
+            <span id="overallSentiment" class="badge">--</span>
+        </div>
+
+        <div class="cards-grid" id="signalsGrid">
+            <!-- Signal cards will be injected here -->
+        </div>
+
+        <footer>
+            <p>Built with ⚡ by Mission Control | Data updates every 24h</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
