@@ -1,14 +1,14 @@
 {
-  "lastUpdate": "2026-02-16",
-  "fearGreedIndex": 12,
+  "lastUpdate": "2026-02-17",
+  "fearGreedIndex": 10,
   "fearGreedLabel": "Extreme Fear",
-  "btcPrice": 68536,
+  "btcPrice": 68384,
   "whaleAccumulation": "+21%",
   "etfInflows": "$1.42B",
   "fedRates": "3-3.25% (expected cut)",
   "overallSentiment": "bullish",
   "signals": [
-    {"name": "Fear & Greed", "value": 12, "signal": "buy"},
+    {"name": "Fear & Greed", "value": 10, "signal": "buy"},
     {"name": "Whale Activity", "value": "+21%", "signal": "accumulation"},
     {"name": "ETF Flows", "value": "$1.42B", "signal": "institutional buying"},
     {"name": "Fed Policy", "value": "rate cuts expected", "signal": "risk-on"}
