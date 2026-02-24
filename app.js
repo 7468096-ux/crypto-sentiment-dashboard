@@ -67,14 +67,25 @@ function renderSignals(signals) {
     
     signals.forEach(signal => {
         const card = document.createElement('div');
-        card.className = 'signal-card';
+        card.className = 'signal-card fade-in';
         
         // Normalize signal class for CSS
         const signalClass = signal.signal.toLowerCase().replace(/ /g, '-');
         
+        // Trend arrow
+        const trendArrows = {
+            'up': '↑',
+            'down': '↓',
+            'neutral': '→'
+        };
+        const trendArrow = signal.trend ? `<span class="trend-arrow ${signal.trend}">${trendArrows[signal.trend]}</span>` : '';
+        
         card.innerHTML = `
             <h3>${signal.name}</h3>
-            <span class="value">${signal.value}</span>
+            <span class="value">
+                ${signal.value}
+                ${trendArrow}
+            </span>
             <span class="signal-label ${signalClass}">${signal.signal}</span>
         `;
         
@@ -98,8 +109,19 @@ async function loadData() {
         document.getElementById('fearGreedLabel').textContent = data.fearGreedLabel;
         drawGauge(data.fearGreedIndex);
         
+        // Add fade-in animation
+        document.querySelector('.hero-card').classList.add('fade-in');
+        
         // Update BTC Price
         document.getElementById('btcPrice').textContent = formatCurrency(data.btcPrice);
+        
+        // Update BTC Price Change
+        const btcChangeElement = document.getElementById('btcChange');
+        const changeValue = data.btcChange24h || 0;
+        const changeClass = changeValue > 0 ? 'positive' : changeValue < 0 ? 'negative' : 'neutral';
+        const changeArrow = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '→';
+        btcChangeElement.textContent = `${changeArrow} ${Math.abs(changeValue).toFixed(2)}% (24h)`;
+        btcChangeElement.className = `price-change ${changeClass}`;
         
         // Update Overall Sentiment
         const sentimentBadge = document.getElementById('overallSentiment');
