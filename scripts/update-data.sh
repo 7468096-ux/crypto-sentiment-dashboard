@@ -11,8 +11,10 @@ FNG=$(curl -s "https://api.alternative.me/fng/?limit=1")
 FNG_VALUE=$(echo $FNG | jq -r '.data[0].value')
 FNG_LABEL=$(echo $FNG | jq -r '.data[0].value_classification')
 
-# Get BTC price (CoinGecko)
-BTC_PRICE=$(curl -s "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd" | jq -r '.bitcoin.usd')
+# Get BTC price + 24h change (CoinGecko)
+BTC_DATA=$(curl -s "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true")
+BTC_PRICE=$(echo $BTC_DATA | jq -r '.bitcoin.usd')
+BTC_CHANGE=$(echo $BTC_DATA | jq -r '.bitcoin.usd_24h_change')
 
 # Update sentiment.json
 cat > data/sentiment.json << EOF
@@ -21,6 +23,7 @@ cat > data/sentiment.json << EOF
   "fearGreedIndex": $FNG_VALUE,
   "fearGreedLabel": "$FNG_LABEL",
   "btcPrice": $BTC_PRICE,
+  "btcChange24h": $BTC_CHANGE,
   "whaleAccumulation": "+21%",
   "etfInflows": "\$1.42B",
   "fedRates": "3-3.25% (expected cut)",

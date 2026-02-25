@@ -70,9 +70,70 @@ header h1 {
     margin-bottom: 0.5rem;
 }
 
-.last-update {
+.header-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.update-info {
+    text-align: left;
+}
+
+.last-update,
+.next-update {
     color: var(--text-secondary);
     font-size: 0.9rem;
+    margin: 0.25rem 0;
+}
+
+.next-update span {
+    color: var(--accent-green);
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+
+.refresh-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-green);
+    transform: translateY(-2px);
+}
+
+.refresh-btn:active {
+    transform: scale(0.95);
+}
+
+.refresh-btn svg {
+    transition: transform 0.6s ease;
+}
+
+.refresh-btn:hover svg {
+    transform: rotate(180deg);
+}
+
+.refresh-btn.loading svg {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* Hero Card - Fear & Greed + BTC Price */
@@ -286,6 +347,15 @@ footer {
 @media (max-width: 768px) {
     header h1 {
         font-size: 2rem;
+    }
+
+    .header-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .update-info {
+        text-align: center;
     }
 
     .hero-card {

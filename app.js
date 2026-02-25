@@ -22,6 +22,24 @@ function getColorForIndex(value) {
 function drawGauge(value) {
     const gaugeArc = document.getElementById('gaugeArc');
     const gaugeNeedle = document.getElementById('gaugeNeedle');
+    const gaugeSvg = document.getElementById('gaugeSvg');
+    
+    // Create gradient for full spectrum
+    let defs = gaugeSvg.querySelector('defs');
+    if (!defs) {
+        defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        gaugeSvg.insertBefore(defs, gaugeSvg.firstChild);
+    }
+    
+    defs.innerHTML = `
+        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ff3366;stop-opacity:1" />
+            <stop offset="25%" style="stop-color:#ff6644;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#ffaa00;stop-opacity:1" />
+            <stop offset="75%" style="stop-color:#88ff44;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#00ff88;stop-opacity:1" />
+        </linearGradient>
+    `;
     
     // Calculate angle (180 degrees total, from left to right)
     const angle = (value / 100) * 180;
@@ -37,17 +55,20 @@ function drawGauge(value) {
     gaugeNeedle.setAttribute('x2', needleX);
     gaugeNeedle.setAttribute('y2', needleY);
     
-    // Arc color gradient
-    const color = getColorForIndex(value);
-    gaugeArc.setAttribute('stroke', color);
+    // Apply gradient to arc
+    gaugeArc.setAttribute('stroke', 'url(#gaugeGradient)');
     
     // Create gradient path effect
     const largeArcFlag = angle > 180 ? 1 : 0;
     const endX = centerX + 80 * Math.cos(radian);
     const endY = centerY + 80 * Math.sin(radian);
     
-    // Simple colored arc from start to needle position
+    // Animate the arc growing to needle position
     gaugeArc.setAttribute('d', `M 20 100 A 80 80 0 ${largeArcFlag} 1 ${endX} ${endY}`);
+    
+    // Add glow effect to needle based on value
+    const color = getColorForIndex(value);
+    gaugeNeedle.style.filter = `drop-shadow(0 0 8px ${color})`;
 }
 
 // Format currency
@@ -137,5 +158,46 @@ async function loadData() {
     }
 }
 
+// Countdown to next update (daily at 08:00 UTC)
+function updateCountdown() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setUTCHours(8, 0, 0, 0);
+    
+    // If we're past 08:00 today, target tomorrow
+    if (now.getUTCHours() >= 8) {
+        tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
+    }
+    
+    const diff = tomorrow - now;
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById('nextUpdate').textContent = 
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+// Refresh functionality
+function setupRefreshButton() {
+    const refreshBtn = document.getElementById('refreshBtn');
+    refreshBtn.addEventListener('click', async () => {
+        refreshBtn.classList.add('loading');
+        refreshBtn.disabled = true;
+        await loadData();
+        setTimeout(() => {
+            refreshBtn.classList.remove('loading');
+            refreshBtn.disabled = false;
+        }, 600);
+    });
+    
+    // Start countdown timer
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', loadData);
+document.addEventListener('DOMContentLoaded', () => {
+    loadData();
+    setupRefreshButton();
+});
