@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Sentiment Dashboard</title>
+    <meta name="description" content="Real-time crypto market sentiment dashboard with Fear & Greed Index, Bitcoin price, and trading signals">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>🚀 Crypto Sentiment Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,7 +28,10 @@
 
         <div class="hero-card">
             <div class="gauge-container">
-                <h2>Fear & Greed Index</h2>
+                <h2 class="tooltip">
+                    Fear & Greed Index
+                    <span class="tooltip-text">Measures crypto market emotions from 0 (Extreme Fear) to 100 (Extreme Greed). Lower values often signal buying opportunities.</span>
+                </h2>
                 <div class="gauge">
                     <svg viewBox="0 0 200 120" id="gaugeSvg">
                         <!-- Background arc -->
@@ -52,20 +57,23 @@
                     </svg>
                 </div>
                 <div class="gauge-value">
-                    <span id="fearGreedValue">--</span>
+                    <span id="fearGreedValue" class="pulse">--</span>
                     <span id="fearGreedLabel" class="gauge-label">Loading...</span>
                 </div>
             </div>
             
             <div class="btc-price">
-                <h3>Bitcoin Price</h3>
-                <p class="price" id="btcPrice">$--</p>
+                <h3 class="tooltip">
+                    Bitcoin Price
+                    <span class="tooltip-text">Real-time BTC/USD price with 24-hour change percentage</span>
+                </h3>
+                <p class="price pulse" id="btcPrice">$--</p>
                 <p class="price-change" id="btcChange">--</p>
             </div>
         </div>
 
         <div class="sentiment-badge">
-            <span>Overall Sentiment:</span>
+            <span>Overall Market Sentiment:</span>
             <span id="overallSentiment" class="badge">--</span>
         </div>
 
@@ -74,7 +82,11 @@
         </div>
 
         <footer>
-            <p>Built with ⚡ by Mission Control | Data updates every 24h</p>
+            <p>
+                Built with ⚡ by Mission Control 
+                <span style="opacity: 0.5;">|</span> 
+                Data updates daily at 08:00 UTC
+            </p>
         </footer>
     </div>
 

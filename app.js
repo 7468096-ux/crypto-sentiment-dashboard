@@ -3,6 +3,14 @@
 
 const DATA_URL = './data/sentiment.json';
 
+// Tooltip descriptions for signal cards
+const SIGNAL_TOOLTIPS = {
+    'Fear & Greed': 'Market sentiment indicator. Low values = fear = potential buy opportunity',
+    'Whale Activity': 'Large holders accumulation/distribution. Positive = accumulation phase',
+    'ETF Flows': 'Institutional money flowing into Bitcoin ETFs. Higher = more institutional interest',
+    'Fed Policy': 'Federal Reserve interest rate policy. Rate cuts = more liquidity = risk-on'
+};
+
 // Color mapping for Fear & Greed Index (0-100)
 function getColorForIndex(value) {
     // 0-25: Red (Extreme Fear)
@@ -52,6 +60,8 @@ function drawGauge(value) {
     const needleX = centerX + needleLength * Math.cos(radian);
     const needleY = centerY + needleLength * Math.sin(radian);
     
+    // Animate needle movement
+    gaugeNeedle.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
     gaugeNeedle.setAttribute('x2', needleX);
     gaugeNeedle.setAttribute('y2', needleY);
     
@@ -64,11 +74,16 @@ function drawGauge(value) {
     const endY = centerY + 80 * Math.sin(radian);
     
     // Animate the arc growing to needle position
+    gaugeArc.style.transition = 'all 1s ease-out';
     gaugeArc.setAttribute('d', `M 20 100 A 80 80 0 ${largeArcFlag} 1 ${endX} ${endY}`);
     
     // Add glow effect to needle based on value
     const color = getColorForIndex(value);
     gaugeNeedle.style.filter = `drop-shadow(0 0 8px ${color})`;
+    
+    // Update gauge value color
+    const valueElement = document.getElementById('fearGreedValue');
+    valueElement.style.color = color;
 }
 
 // Format currency
@@ -81,14 +96,15 @@ function formatCurrency(value) {
     }).format(value);
 }
 
-// Render signal cards
+// Render signal cards with tooltips
 function renderSignals(signals) {
     const grid = document.getElementById('signalsGrid');
     grid.innerHTML = '';
     
-    signals.forEach(signal => {
+    signals.forEach((signal, index) => {
         const card = document.createElement('div');
         card.className = 'signal-card fade-in';
+        card.style.animationDelay = `${index * 0.1}s`;
         
         // Normalize signal class for CSS
         const signalClass = signal.signal.toLowerCase().replace(/ /g, '-');
@@ -101,8 +117,14 @@ function renderSignals(signals) {
         };
         const trendArrow = signal.trend ? `<span class="trend-arrow ${signal.trend}">${trendArrows[signal.trend]}</span>` : '';
         
+        // Tooltip
+        const tooltip = SIGNAL_TOOLTIPS[signal.name] || 'Market indicator';
+        
         card.innerHTML = `
-            <h3>${signal.name}</h3>
+            <h3 class="tooltip">
+                ${signal.name}
+                <span class="tooltip-text">${tooltip}</span>
+            </h3>
             <span class="value">
                 ${signal.value}
                 ${trendArrow}
@@ -112,6 +134,18 @@ function renderSignals(signals) {
         
         grid.appendChild(card);
     });
+}
+
+// Show loading skeleton
+function showLoadingSkeleton() {
+    const grid = document.getElementById('signalsGrid');
+    grid.innerHTML = '';
+    
+    for (let i = 0; i < 4; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'skeleton';
+        grid.appendChild(skeleton);
+    }
 }
 
 // Load and render data
@@ -126,11 +160,12 @@ async function loadData() {
         document.getElementById('lastUpdate').textContent = data.lastUpdate;
         
         // Update Fear & Greed Index
-        document.getElementById('fearGreedValue').textContent = data.fearGreedIndex;
+        const fgValue = data.fearGreedIndex;
+        document.getElementById('fearGreedValue').textContent = fgValue;
         document.getElementById('fearGreedLabel').textContent = data.fearGreedLabel;
-        drawGauge(data.fearGreedIndex);
+        drawGauge(fgValue);
         
-        // Add fade-in animation
+        // Add fade-in animation to hero card
         document.querySelector('.hero-card').classList.add('fade-in');
         
         // Update BTC Price
@@ -146,7 +181,7 @@ async function loadData() {
         
         // Update Overall Sentiment
         const sentimentBadge = document.getElementById('overallSentiment');
-        sentimentBadge.textContent = data.overallSentiment;
+        sentimentBadge.textContent = data.overallSentiment.toUpperCase();
         sentimentBadge.className = `badge ${data.overallSentiment.toLowerCase()}`;
         
         // Render signal cards
@@ -155,6 +190,10 @@ async function loadData() {
     } catch (error) {
         console.error('Error loading data:', error);
         document.getElementById('lastUpdate').textContent = 'Error loading data';
+        document.getElementById('fearGreedValue').textContent = '?';
+        document.getElementById('fearGreedLabel').textContent = 'Error';
+        document.getElementById('btcPrice').textContent = '$--';
+        document.getElementById('overallSentiment').textContent = 'ERROR';
     }
 }
 
@@ -184,7 +223,14 @@ function setupRefreshButton() {
     refreshBtn.addEventListener('click', async () => {
         refreshBtn.classList.add('loading');
         refreshBtn.disabled = true;
+        
+        // Show loading skeleton
+        showLoadingSkeleton();
+        
+        // Simulate network delay for smooth UX
+        await new Promise(resolve => setTimeout(resolve, 300));
         await loadData();
+        
         setTimeout(() => {
             refreshBtn.classList.remove('loading');
             refreshBtn.disabled = false;
@@ -198,6 +244,7 @@ function setupRefreshButton() {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+    showLoadingSkeleton();
     loadData();
     setupRefreshButton();
 });
