@@ -5,10 +5,10 @@ const DATA_URL = './data/sentiment.json';
 
 // Tooltip descriptions for signal cards
 const SIGNAL_TOOLTIPS = {
-    'Fear & Greed': 'Market sentiment indicator. Low values = fear = potential buy opportunity',
-    'Whale Activity': 'Large holders accumulation/distribution. Positive = accumulation phase',
-    'ETF Flows': 'Institutional money flowing into Bitcoin ETFs. Higher = more institutional interest',
-    'Fed Policy': 'Federal Reserve interest rate policy. Rate cuts = more liquidity = risk-on'
+    'Fear & Greed': 'Crypto Fear & Greed Index (0-100). Extreme Fear (<25) often signals buying opportunities as sentiment is oversold. Extreme Greed (>75) suggests caution.',
+    'Whale Activity': 'On-chain tracking of large holders (whales). Positive percentage = accumulation = bullish. Negative = distribution = bearish. Whales often lead market movements.',
+    'ETF Flows': 'Net institutional money flowing into Bitcoin ETFs. Higher flows indicate institutional adoption and long-term confidence. Strong predictor of price action.',
+    'Fed Policy': 'Federal Reserve interest rate policy. Rate cuts increase liquidity → risk-on assets (crypto) perform better. Rate hikes = tighter monetary policy = risk-off.'
 };
 
 // Color mapping for Fear & Greed Index (0-100)
@@ -148,11 +148,13 @@ function showLoadingSkeleton() {
     }
 }
 
-// Load and render data
-async function loadData() {
+// Load and render data with retry mechanism
+async function loadData(retryCount = 0) {
+    const maxRetries = 3;
+    
     try {
-        const response = await fetch(DATA_URL);
-        if (!response.ok) throw new Error('Failed to load data');
+        const response = await fetch(DATA_URL + '?t=' + Date.now()); // Cache bust
+        if (!response.ok) throw new Error(`HTTP ${response.status}: Failed to load data`);
         
         const data = await response.json();
         
@@ -189,11 +191,30 @@ async function loadData() {
         
     } catch (error) {
         console.error('Error loading data:', error);
+        
+        // Retry logic
+        if (retryCount < maxRetries) {
+            console.log(`Retrying... (${retryCount + 1}/${maxRetries})`);
+            await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1))); // Exponential backoff
+            return loadData(retryCount + 1);
+        }
+        
+        // Show error state after all retries
         document.getElementById('lastUpdate').textContent = 'Error loading data';
         document.getElementById('fearGreedValue').textContent = '?';
         document.getElementById('fearGreedLabel').textContent = 'Error';
         document.getElementById('btcPrice').textContent = '$--';
+        document.getElementById('btcChange').textContent = 'Failed to load';
         document.getElementById('overallSentiment').textContent = 'ERROR';
+        
+        // Show error message in grid
+        const grid = document.getElementById('signalsGrid');
+        grid.innerHTML = `
+            <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                <p style="font-size: 1.5rem; color: var(--accent-red); margin-bottom: 1rem;">⚠️ Failed to load data</p>
+                <p style="color: var(--text-secondary);">Please try refreshing the page or check back later.</p>
+            </div>
+        `;
     }
 }
 
@@ -242,9 +263,34 @@ function setupRefreshButton() {
     setInterval(updateCountdown, 1000);
 }
 
+// Copy BTC price to clipboard
+function setupCopyPrice() {
+    const priceElement = document.getElementById('btcPrice');
+    const notification = document.getElementById('copyNotification');
+    
+    priceElement.addEventListener('click', async () => {
+        const priceText = priceElement.textContent;
+        
+        try {
+            await navigator.clipboard.writeText(priceText);
+            
+            // Show notification
+            notification.classList.add('show');
+            
+            // Hide after 2 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        } catch (error) {
+            console.error('Failed to copy:', error);
+        }
+    });
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     showLoadingSkeleton();
     loadData();
     setupRefreshButton();
+    setupCopyPrice();
 });

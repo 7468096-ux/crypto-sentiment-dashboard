@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Real-time crypto market sentiment dashboard with Fear & Greed Index, Bitcoin price, and trading signals">
+    <meta name="description" content="Real-time crypto market sentiment dashboard with Fear & Greed Index, Bitcoin price, whale activity, ETF flows, and trading signals">
+    <meta name="keywords" content="crypto, bitcoin, fear and greed, sentiment, trading, whale activity, ETF, market analysis">
+    <meta name="author" content="Mission Control">
     <meta name="theme-color" content="#0a0a0a">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="🚀 Crypto Sentiment Dashboard">
+    <meta property="og:description" content="Track crypto market sentiment with Fear & Greed Index, whale activity, ETF flows, and macro indicators">
+    <meta property="og:image" content="https://7468096-ux.github.io/crypto-sentiment-dashboard/favicon.svg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🚀 Crypto Sentiment Dashboard">
+    <meta name="twitter:description" content="Real-time crypto market sentiment analysis">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
     <title>🚀 Crypto Sentiment Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -65,10 +82,11 @@
             <div class="btc-price">
                 <h3 class="tooltip">
                     Bitcoin Price
-                    <span class="tooltip-text">Real-time BTC/USD price with 24-hour change percentage</span>
+                    <span class="tooltip-text">Real-time BTC/USD price with 24-hour change. Click price to copy to clipboard.</span>
                 </h3>
-                <p class="price pulse" id="btcPrice">$--</p>
+                <p class="price pulse" id="btcPrice" title="Click to copy">$--</p>
                 <p class="price-change" id="btcChange">--</p>
+                <div class="copy-notification" id="copyNotification">✓ Copied!</div>
             </div>
         </div>
 
