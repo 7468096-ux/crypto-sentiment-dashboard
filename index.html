@@ -76,6 +76,7 @@
                 <div class="gauge-value">
                     <span id="fearGreedValue" class="pulse">--</span>
                     <span id="fearGreedLabel" class="gauge-label">Loading...</span>
+                    <canvas id="fgSparkline" class="sparkline"></canvas>
                 </div>
             </div>
             
@@ -86,6 +87,7 @@
                 </h3>
                 <p class="price pulse" id="btcPrice" title="Click to copy">$--</p>
                 <p class="price-change" id="btcChange">--</p>
+                <canvas id="btcSparkline" class="sparkline"></canvas>
                 <div class="copy-notification" id="copyNotification">✓ Copied!</div>
             </div>
         </div>
@@ -108,7 +110,11 @@
         </footer>
     </div>
 
+    <!-- Chart.js for sparklines -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
     <script src="app.js"></script>
     <script src="improvements.js"></script>
+    <script src="sparklines.js"></script>
 </body>
 </html>
