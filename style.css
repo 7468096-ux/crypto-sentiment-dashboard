@@ -624,6 +624,105 @@ footer p {
     }
 }
 
+/* BTC Price Chart */
+.chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+    background: rgba(26, 26, 26, 0.8);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.chart-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--bg-dark);
+    padding: 0.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.chart-period {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.chart-period:hover {
+    color: var(--text-primary);
+    background: var(--bg-card);
+}
+
+.chart-period.active {
+    background: var(--accent-green);
+    color: var(--bg-dark);
+}
+
+.price-chart-container {
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+/* Mobile chart adjustments */
+@media (max-width: 768px) {
+    .chart-card {
+        padding: 1.5rem;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .chart-controls {
+        width: 100%;
+        justify-content: space-around;
+    }
+    
+    .chart-period {
+        flex: 1;
+        padding: 0.6rem;
+    }
+    
+    .price-chart-container {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .price-chart-container {
+        height: 250px;
+    }
+    
+    .chart-period {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+}
+
 /* Sparklines */
 .sparkline-wrapper {
     width: 100%;

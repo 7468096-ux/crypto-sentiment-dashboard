@@ -101,6 +101,23 @@
             <span id="overallSentiment" class="badge">--</span>
         </div>
 
+        <!-- BTC Price Chart -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <h2 class="tooltip">
+                    Bitcoin Price Chart
+                    <span class="tooltip-text">Interactive BTC/USD price chart with volume. Click time periods to change view.</span>
+                </h2>
+                <div class="chart-controls">
+                    <button class="chart-period active" data-period="24h">24H</button>
+                    <button class="chart-period" data-period="7d">7D</button>
+                    <button class="chart-period" data-period="30d">30D</button>
+                    <button class="chart-period" data-period="90d">90D</button>
+                </div>
+            </div>
+            <div id="priceChart" class="price-chart-container"></div>
+        </div>
+
         <div class="cards-grid" id="signalsGrid">
             <!-- Signal cards will be injected here -->
         </div>
@@ -117,8 +134,12 @@
     <!-- Chart.js for sparklines -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     
+    <!-- Lightweight Charts for price chart -->
+    <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+    
     <script src="app.js"></script>
     <script src="improvements.js"></script>
     <script src="sparklines.js"></script>
+    <script src="price-chart.js"></script>
 </body>
 </html>
