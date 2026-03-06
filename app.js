@@ -287,10 +287,108 @@ function setupCopyPrice() {
     });
 }
 
+// Export data as JSON
+function setupExportButton() {
+    const exportBtn = document.getElementById('exportBtn');
+    if (!exportBtn) return;
+    
+    exportBtn.addEventListener('click', () => {
+        // Gather current dashboard data
+        const exportData = {
+            timestamp: new Date().toISOString(),
+            date: new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZoneName: 'short'
+            }),
+            metrics: {
+                fearGreedIndex: {
+                    value: parseInt(document.getElementById('fearGreedValue')?.textContent || '0'),
+                    label: document.getElementById('fearGreedLabel')?.textContent || 'Unknown',
+                    interpretation: getFearGreedInterpretation(
+                        parseInt(document.getElementById('fearGreedValue')?.textContent || '0')
+                    )
+                },
+                bitcoinPrice: {
+                    value: document.getElementById('btcPrice')?.textContent || '$0',
+                    change24h: document.getElementById('btcChange')?.textContent || '0%',
+                    numericValue: parseFloat(
+                        document.getElementById('btcPrice')?.textContent.replace(/[$,]/g, '') || '0'
+                    )
+                },
+                overallSentiment: document.getElementById('overallSentiment')?.textContent || 'Unknown'
+            },
+            signals: Array.from(document.querySelectorAll('.signal-card')).map(card => {
+                const name = card.querySelector('h3')?.textContent || '';
+                const value = card.querySelector('.value')?.textContent || '';
+                const signal = card.querySelector('.signal-label')?.textContent || '';
+                const badge = card.querySelector('.badge');
+                const status = badge?.classList.contains('bullish') ? 'bullish' : 
+                              badge?.classList.contains('bearish') ? 'bearish' : 'neutral';
+                
+                return { name, value, signal, status };
+            }),
+            metadata: {
+                source: 'Crypto Sentiment Dashboard',
+                url: window.location.href,
+                version: '2.0',
+                exportedBy: 'User',
+                disclaimer: 'This data is for informational purposes only. Not financial advice.'
+            }
+        };
+        
+        // Create downloadable JSON file
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { 
+            type: 'application/json' 
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const filename = `crypto-sentiment-${new Date().toISOString().split('T')[0]}.json`;
+        
+        link.href = url;
+        link.download = filename;
+        link.click();
+        
+        // Cleanup
+        URL.revokeObjectURL(url);
+        
+        // Visual feedback
+        exportBtn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>Exported!</span>
+        `;
+        
+        setTimeout(() => {
+            exportBtn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+                <span>Export</span>
+            `;
+        }, 2000);
+    });
+}
+
+// Helper function for F&G interpretation
+function getFearGreedInterpretation(value) {
+    if (value <= 25) return 'Extreme Fear - Potential buying opportunity';
+    if (value <= 45) return 'Fear - Market is cautious';
+    if (value <= 55) return 'Neutral - Balanced sentiment';
+    if (value <= 75) return 'Greed - Market is optimistic';
+    return 'Extreme Greed - Potential market top';
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     showLoadingSkeleton();
     loadData();
     setupRefreshButton();
     setupCopyPrice();
+    setupExportButton();
 });

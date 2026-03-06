@@ -40,6 +40,12 @@
                     </svg>
                     <span>Refresh</span>
                 </button>
+                <button class="export-btn" id="exportBtn" title="Export data as JSON">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    <span>Export</span>
+                </button>
             </div>
         </header>
 
@@ -137,6 +143,7 @@
     <!-- Lightweight Charts for price chart -->
     <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
     
+    <script src="sentiment-calculator.js"></script>
     <script src="app.js"></script>
     <script src="improvements.js"></script>
     <script src="sparklines.js"></script>
