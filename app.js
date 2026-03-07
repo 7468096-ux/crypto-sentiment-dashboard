@@ -181,10 +181,20 @@ async function loadData(retryCount = 0) {
         btcChangeElement.textContent = `${changeArrow} ${Math.abs(changeValue).toFixed(2)}% (24h)`;
         btcChangeElement.className = `price-change ${changeClass}`;
         
-        // Update Overall Sentiment
+        // Calculate and Update Overall Sentiment (using smart calculator)
+        const sentimentResult = calculateOverallSentiment(data);
         const sentimentBadge = document.getElementById('overallSentiment');
-        sentimentBadge.textContent = data.overallSentiment.toUpperCase();
-        sentimentBadge.className = `badge ${data.overallSentiment.toLowerCase()}`;
+        sentimentBadge.textContent = `${sentimentResult.sentiment.toUpperCase()} (${sentimentResult.confidence})`;
+        sentimentBadge.className = `badge ${sentimentResult.sentiment.toLowerCase()}`;
+        sentimentBadge.title = `Sentiment Score: ${sentimentResult.score}/100\n\nBreakdown:\n` +
+            `Fear & Greed: ${sentimentResult.breakdown.fearGreed}\n` +
+            `Whale Activity: ${sentimentResult.breakdown.whaleActivity}\n` +
+            `Price Action: ${sentimentResult.breakdown.priceAction}\n` +
+            `ETF Flows: ${sentimentResult.breakdown.etfFlows}\n` +
+            `Fed Policy: ${sentimentResult.breakdown.fedPolicy}`;
+        
+        // Log sentiment analysis to console for debugging
+        console.log('📊 Sentiment Analysis:', sentimentResult);
         
         // Render signal cards
         renderSignals(data.signals);

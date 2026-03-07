@@ -14,9 +14,17 @@
     --accent-red: #ff3366;
     --accent-yellow: #ffaa00;
     --accent-blue: #4d9fff;
+    --accent-purple: #9d4edd;
+    --accent-orange: #ff6b35;
     --border-color: #333;
     --glow-green: 0 0 20px rgba(0, 255, 136, 0.3);
     --glow-red: 0 0 20px rgba(255, 51, 102, 0.3);
+    
+    /* Transition variables */
+    --transition-fast: all 0.15s ease;
+    --transition-base: all 0.3s ease;
+    --transition-slow: all 0.6s ease;
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 body {
@@ -78,7 +86,7 @@ body::before {
 
 /* Smooth animations */
 * {
-    transition: all 0.3s ease;
+    transition: var(--transition-base);
 }
 
 /* Loading skeleton */
@@ -174,7 +182,7 @@ header h1 {
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: var(--transition-base);
 }
 
 .refresh-btn:hover {
@@ -218,7 +226,7 @@ header h1 {
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: var(--transition-base);
 }
 
 .export-btn:hover {
@@ -371,7 +379,7 @@ header h1 {
     font-weight: 600;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s ease;
+    transition: var(--transition-base);
     box-shadow: 0 4px 12px rgba(0, 255, 136, 0.4);
 }
 
@@ -449,7 +457,7 @@ header h1 {
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 1.5rem;
-    transition: all 0.3s ease;
+    transition: var(--transition-base);
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -751,7 +759,7 @@ footer p {
     border-radius: 6px;
     font-weight: 600;
     font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: var(--transition-base);
 }
 
 .chart-period:hover {
