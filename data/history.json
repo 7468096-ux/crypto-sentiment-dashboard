@@ -1,0 +1,44 @@
+[
+  {
+    "date": "2026-03-10",
+    "fearGreed": 13,
+    "btcPrice": 70342,
+    "change24h": 4.14
+  },
+  {
+    "date": "2026-03-09",
+    "fearGreed": 17,
+    "btcPrice": 67536,
+    "change24h": -2.31
+  },
+  {
+    "date": "2026-03-08",
+    "fearGreed": 22,
+    "btcPrice": 69141,
+    "change24h": 1.87
+  },
+  {
+    "date": "2026-03-07",
+    "fearGreed": 19,
+    "btcPrice": 67873,
+    "change24h": -4.53
+  },
+  {
+    "date": "2026-03-06",
+    "fearGreed": 28,
+    "btcPrice": 71094,
+    "change24h": 3.22
+  },
+  {
+    "date": "2026-03-05",
+    "fearGreed": 31,
+    "btcPrice": 68880,
+    "change24h": -1.45
+  },
+  {
+    "date": "2026-03-04",
+    "fearGreed": 35,
+    "btcPrice": 69896,
+    "change24h": 2.10
+  }
+]

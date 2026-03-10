@@ -616,6 +616,115 @@ header h1 {
     }
 }
 
+/* Historical Data Table */
+.history-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.history-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+}
+
+.history-table thead th {
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 2px solid var(--border-color);
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.history-table tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition-base);
+}
+
+.history-table tbody tr {
+    transition: var(--transition-base);
+}
+
+.history-table tbody tr:hover {
+    background: var(--bg-card-hover);
+}
+
+.history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.history-table .fg-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.history-table .fg-extreme-fear {
+    color: var(--accent-red);
+}
+
+.history-table .fg-fear {
+    color: var(--accent-orange);
+}
+
+.history-table .fg-neutral {
+    color: var(--accent-yellow);
+}
+
+.history-table .price-value {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+.history-table .change-positive {
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+.history-table .change-negative {
+    color: var(--accent-red);
+    font-weight: 600;
+}
+
+.history-table .change-neutral {
+    color: var(--text-secondary);
+}
+
+/* Mobile table adjustments */
+@media (max-width: 768px) {
+    .history-card {
+        padding: 1.5rem;
+    }
+    
+    .history-table thead th,
+    .history-table tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .history-table .fg-value,
+    .history-table .price-value {
+        font-size: 1rem;
+    }
+}
+
 /* Footer */
 footer {
     text-align: center;

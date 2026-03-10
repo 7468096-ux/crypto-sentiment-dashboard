@@ -394,11 +394,135 @@ function getFearGreedInterpretation(value) {
     return 'Extreme Greed - Potential market top';
 }
 
+// Real-time price polling (every 60 seconds)
+let priceUpdateInterval = null;
+
+async function updateLivePrice() {
+    try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+        if (!response.ok) return;
+        
+        const data = await response.json();
+        const newPrice = data.bitcoin.usd;
+        const newChange = data.bitcoin.usd_24h_change;
+        
+        // Smooth update
+        document.getElementById('btcPrice').textContent = formatCurrency(newPrice);
+        
+        const btcChangeElement = document.getElementById('btcChange');
+        const changeClass = newChange > 0 ? 'positive' : newChange < 0 ? 'negative' : 'neutral';
+        const changeArrow = newChange > 0 ? '↑' : newChange < 0 ? '↓' : '→';
+        btcChangeElement.textContent = `${changeArrow} ${Math.abs(newChange).toFixed(2)}% (24h)`;
+        btcChangeElement.className = `price-change ${changeClass}`;
+        
+        console.log('💰 Live price updated:', formatCurrency(newPrice));
+    } catch (error) {
+        console.error('Failed to update live price:', error);
+    }
+}
+
+function startLivePriceUpdates() {
+    // Update every 60 seconds (CoinGecko free tier friendly)
+    priceUpdateInterval = setInterval(updateLivePrice, 60000);
+    console.log('🔄 Live price updates started (60s interval)');
+}
+
+function stopLivePriceUpdates() {
+    if (priceUpdateInterval) {
+        clearInterval(priceUpdateInterval);
+        priceUpdateInterval = null;
+        console.log('⏸️ Live price updates stopped');
+    }
+}
+
+// Load and render historical data
+async function loadHistoricalData() {
+    try {
+        const response = await fetch('./data/history.json?t=' + Date.now());
+        if (!response.ok) throw new Error('Failed to load history');
+        
+        const history = await response.json();
+        renderHistoryTable(history);
+    } catch (error) {
+        console.error('Error loading historical data:', error);
+    }
+}
+
+function renderHistoryTable(history) {
+    const tbody = document.querySelector('.history-table tbody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    history.forEach(row => {
+        const tr = document.createElement('tr');
+        
+        // Format date
+        const date = new Date(row.date);
+        const formattedDate = date.toLocaleDateString('en-US', { 
+            month: 'short', 
+            day: 'numeric' 
+        });
+        
+        // Fear & Greed color class
+        let fgClass = 'fg-neutral';
+        if (row.fearGreed <= 25) fgClass = 'fg-extreme-fear';
+        else if (row.fearGreed <= 45) fgClass = 'fg-fear';
+        
+        // Change color class
+        let changeClass = 'change-neutral';
+        let changeSymbol = '';
+        if (row.change24h > 0) {
+            changeClass = 'change-positive';
+            changeSymbol = '+';
+        } else if (row.change24h < 0) {
+            changeClass = 'change-negative';
+        }
+        
+        tr.innerHTML = `
+            <td>${formattedDate}</td>
+            <td><span class="fg-value ${fgClass}">${row.fearGreed}</span></td>
+            <td><span class="price-value">${formatCurrency(row.btcPrice)}</span></td>
+            <td><span class="${changeClass}">${changeSymbol}${row.change24h.toFixed(2)}%</span></td>
+        `;
+        
+        tbody.appendChild(tr);
+    });
+}
+
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('✅ Service Worker registered:', registration.scope);
+            })
+            .catch(error => {
+                console.error('❌ Service Worker registration failed:', error);
+            });
+    });
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     showLoadingSkeleton();
     loadData();
+    loadHistoricalData(); // Load historical data table
     setupRefreshButton();
     setupCopyPrice();
     setupExportButton();
+    
+    // Start live price updates after initial load
+    setTimeout(() => {
+        startLivePriceUpdates();
+    }, 5000); // Wait 5 seconds after page load
+});
+
+// Stop updates when page is hidden (battery saving)
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        stopLivePriceUpdates();
+    } else {
+        startLivePriceUpdates();
+    }
 });

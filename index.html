@@ -22,6 +22,13 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CryptoSent">
+    
     <title>🚀 Crypto Sentiment Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -126,6 +133,26 @@
 
         <div class="cards-grid" id="signalsGrid">
             <!-- Signal cards will be injected here -->
+        </div>
+
+        <!-- Historical Data Table -->
+        <div class="history-card">
+            <h2>📅 Historical Data (Last 7 Days)</h2>
+            <div class="table-wrapper">
+                <table class="history-table" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Fear & Greed</th>
+                            <th>BTC Price</th>
+                            <th>24h Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be injected here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <footer>
