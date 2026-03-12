@@ -6,7 +6,7 @@ const DATA_URL = './data/sentiment.json';
 // Tooltip descriptions for signal cards
 const SIGNAL_TOOLTIPS = {
     'Fear & Greed': 'Crypto Fear & Greed Index (0-100). Extreme Fear (<25) often signals buying opportunities as sentiment is oversold. Extreme Greed (>75) suggests caution.',
-    'Whale Activity': 'On-chain tracking of large holders (whales). Positive percentage = accumulation = bullish. Negative = distribution = bearish. Whales often lead market movements.',
+    'BTC Dominance': 'Bitcoin\'s market cap as % of total crypto market. High dominance (>60%) = BTC season. Low dominance (<50%) = altseason (alts outperform BTC). Currently a key rotation indicator.',
     'ETF Flows': 'Net institutional money flowing into Bitcoin ETFs. Higher flows indicate institutional adoption and long-term confidence. Strong predictor of price action.',
     'Fed Policy': 'Federal Reserve interest rate policy. Rate cuts increase liquidity → risk-on assets (crypto) perform better. Rate hikes = tighter monetary policy = risk-off.'
 };
@@ -166,6 +166,18 @@ async function loadData(retryCount = 0) {
         document.getElementById('fearGreedValue').textContent = fgValue;
         document.getElementById('fearGreedLabel').textContent = data.fearGreedLabel;
         drawGauge(fgValue);
+        
+        // Calculate and display F&G change from yesterday
+        const fgChangeElement = document.getElementById('fearGreedChange');
+        if (data.fearGreedChange !== undefined) {
+            const changeValue = data.fearGreedChange;
+            const changeClass = changeValue > 0 ? 'positive' : changeValue < 0 ? 'negative' : 'neutral';
+            const changeArrow = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '→';
+            fgChangeElement.textContent = `${changeArrow} ${Math.abs(changeValue)} vs yesterday`;
+            fgChangeElement.className = `gauge-change ${changeClass}`;
+        } else {
+            fgChangeElement.textContent = '';
+        }
         
         // Add fade-in animation to hero card
         document.querySelector('.hero-card').classList.add('fade-in');
@@ -503,6 +515,68 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+// Share functionality
+function setupShareButton() {
+    const shareBtn = document.getElementById('shareBtn');
+    if (!shareBtn) return;
+    
+    shareBtn.addEventListener('click', async () => {
+        const fgValue = document.getElementById('fearGreedValue')?.textContent || '--';
+        const fgLabel = document.getElementById('fearGreedLabel')?.textContent || '';
+        const btcPrice = document.getElementById('btcPrice')?.textContent || '--';
+        const sentiment = document.getElementById('overallSentiment')?.textContent || '--';
+        
+        const shareText = `🚀 Crypto Market Update\n\n` +
+            `Fear & Greed: ${fgValue} (${fgLabel})\n` +
+            `BTC: ${btcPrice}\n` +
+            `Sentiment: ${sentiment}\n\n` +
+            `${window.location.href}`;
+        
+        // Try native Web Share API first
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: '🚀 Crypto Sentiment Dashboard',
+                    text: shareText,
+                    url: window.location.href
+                });
+                console.log('✅ Shared successfully');
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error('Share failed:', error);
+                    fallbackCopyShare(shareText);
+                }
+            }
+        } else {
+            // Fallback: copy to clipboard
+            fallbackCopyShare(shareText);
+        }
+    });
+}
+
+function fallbackCopyShare(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        // Show notification
+        const btn = document.getElementById('shareBtn');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>Copied!</span>
+        `;
+        btn.style.borderColor = 'var(--accent-green)';
+        
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.style.borderColor = '';
+        }, 2000);
+    }).catch(err => {
+        console.error('Copy failed:', err);
+    });
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     showLoadingSkeleton();
@@ -511,6 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupRefreshButton();
     setupCopyPrice();
     setupExportButton();
+    setupShareButton();
     
     // Start live price updates after initial load
     setTimeout(() => {

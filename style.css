@@ -27,6 +27,43 @@
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+/* Light theme */
+[data-theme="light"] {
+    --bg-dark: #f5f5f7;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f0f0f2;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --accent-green: #00c569;
+    --accent-red: #ff3b30;
+    --accent-yellow: #ff9500;
+    --accent-blue: #007aff;
+    --accent-purple: #af52de;
+    --accent-orange: #ff6b35;
+    --border-color: #d2d2d7;
+    --glow-green: 0 0 20px rgba(0, 197, 105, 0.2);
+    --glow-red: 0 0 20px rgba(255, 59, 48, 0.2);
+}
+
+[data-theme="light"] body::before {
+    background: 
+        radial-gradient(
+            circle at 30% 50%,
+            rgba(0, 197, 105, 0.06) 0%,
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 70% 50%,
+            rgba(0, 122, 255, 0.06) 0%,
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 50% 80%,
+            rgba(255, 149, 0, 0.04) 0%,
+            transparent 40%
+        );
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: var(--bg-dark);
@@ -248,6 +285,68 @@ header h1 {
     transform: translateY(3px);
 }
 
+/* Share button */
+.share-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: var(--transition-base);
+}
+
+.share-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-purple);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.3);
+}
+
+.share-btn:active {
+    transform: scale(0.95);
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: var(--transition-base);
+}
+
+.theme-toggle-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-yellow);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 170, 0, 0.3);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle-btn:hover .theme-icon {
+    transform: rotate(20deg);
+}
+
 /* Hero Card - Fear & Greed + BTC Price */
 .hero-card {
     background: var(--bg-card);
@@ -272,6 +371,130 @@ header h1 {
     height: 2px;
     background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow), var(--accent-green));
     opacity: 0.5;
+}
+
+/* Multi-Crypto Card */
+.multi-crypto-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.multi-crypto-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.crypto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.crypto-item {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.crypto-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--crypto-color);
+    opacity: 0.6;
+}
+
+.crypto-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--crypto-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.crypto-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.crypto-header h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.crypto-name {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.crypto-price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.crypto-price .price-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.crypto-price .price-change {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.crypto-sparkline-wrapper {
+    width: 100%;
+    height: 40px;
+    margin-top: 0.5rem;
+}
+
+.crypto-sparkline {
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.crypto-sparkline:hover {
+    opacity: 1;
+}
+
+/* Mobile adjustments for multi-crypto */
+@media (max-width: 768px) {
+    .multi-crypto-card {
+        padding: 1.5rem;
+    }
+    
+    .crypto-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .crypto-item {
+        padding: 1rem;
+    }
+    
+    .crypto-price .price-value {
+        font-size: 1.5rem;
+    }
 }
 
 /* Gauge */
@@ -330,6 +553,26 @@ header h1 {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 600;
+}
+
+.gauge-change {
+    display: block;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+.gauge-change.positive {
+    color: var(--accent-green);
+}
+
+.gauge-change.negative {
+    color: var(--accent-red);
+}
+
+.gauge-change.neutral {
+    color: var(--text-secondary);
 }
 
 /* BTC Price */
