@@ -2,6 +2,7 @@
 // Load and render sentiment data
 
 const DATA_URL = './data/sentiment.json';
+const HISTORY_URL = './data/history.json';
 
 // Tooltip descriptions for signal cards
 const SIGNAL_TOOLTIPS = {
@@ -136,6 +137,73 @@ function renderSignals(signals) {
     });
 }
 
+// Load historical data and calculate trends
+async function loadHistoricalComparison(currentFG) {
+    try {
+        const response = await fetch(HISTORY_URL + '?t=' + Date.now());
+        if (!response.ok) return null;
+        
+        const history = await response.json();
+        if (!history || history.length < 7) return null;
+        
+        // Get value from 7 days ago (index 6, since index 0 is today)
+        const sevenDaysAgo = history[6];
+        if (!sevenDaysAgo) return null;
+        
+        const change7d = currentFG - sevenDaysAgo.fearGreed;
+        const historyElement = document.getElementById('fearGreedHistory');
+        
+        if (historyElement) {
+            const changeArrow = change7d > 0 ? '↑' : change7d < 0 ? '↓' : '→';
+            const changeText = `${changeArrow} ${Math.abs(change7d)} vs 7 days ago (was ${sevenDaysAgo.fearGreed})`;
+            historyElement.textContent = changeText;
+        }
+        
+        return { change7d, sevenDaysAgo };
+    } catch (error) {
+        console.error('Error loading history:', error);
+        return null;
+    }
+}
+
+// Show alert banner for extreme market conditions
+function showAlertBanner(data) {
+    const banner = document.getElementById('alertBanner');
+    const fgValue = data.fearGreedIndex;
+    const whaleAccumulation = parseFloat(data.whaleAccumulation);
+    
+    let alertType = null;
+    let alertMessage = '';
+    let alertIcon = '';
+    
+    // Priority 1: Extreme Fear (strong buy signal)
+    if (fgValue <= 20) {
+        alertType = 'extreme-fear';
+        alertIcon = '🚨';
+        alertMessage = `<strong>STRONG BUY SIGNAL</strong> — Fear & Greed at ${fgValue} (Extreme Fear). Historical data shows this is often a great buying opportunity.`;
+    }
+    // Priority 2: Extreme Greed (take profits warning)
+    else if (fgValue >= 80) {
+        alertType = 'extreme-greed';
+        alertIcon = '⚠️';
+        alertMessage = `<strong>TAKE PROFITS ZONE</strong> — Fear & Greed at ${fgValue} (Extreme Greed). Consider reducing exposure or taking profits.`;
+    }
+    // Priority 3: High whale accumulation
+    else if (whaleAccumulation >= 20) {
+        alertType = 'whale-active';
+        alertIcon = '🐋';
+        alertMessage = `<strong>WHALES ACTIVE</strong> — Whale accumulation at ${data.whaleAccumulation}. Large holders are accumulating.`;
+    }
+    
+    // Show or hide banner
+    if (alertType) {
+        banner.className = `alert-banner ${alertType}`;
+        banner.innerHTML = `<span style="font-size: 1.5rem;">${alertIcon}</span> <span>${alertMessage}</span>`;
+    } else {
+        banner.className = 'alert-banner hidden';
+    }
+}
+
 // Show loading skeleton
 function showLoadingSkeleton() {
     const grid = document.getElementById('signalsGrid');
@@ -182,6 +250,9 @@ async function loadData(retryCount = 0) {
         // Add fade-in animation to hero card
         document.querySelector('.hero-card').classList.add('fade-in');
         
+        // Load historical comparison
+        loadHistoricalComparison(fgValue);
+        
         // Update BTC Price
         document.getElementById('btcPrice').textContent = formatCurrency(data.btcPrice);
         
@@ -207,6 +278,9 @@ async function loadData(retryCount = 0) {
         
         // Log sentiment analysis to console for debugging
         console.log('📊 Sentiment Analysis:', sentimentResult);
+        
+        // Show alert banner for extreme conditions
+        showAlertBanner(data);
         
         // Render signal cards
         renderSignals(data.signals);

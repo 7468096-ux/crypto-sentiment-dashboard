@@ -66,6 +66,9 @@
             </div>
         </header>
 
+        <!-- Alert Banner (shown dynamically) -->
+        <div id="alertBanner" class="alert-banner hidden"></div>
+
         <div class="hero-card">
             <div class="gauge-container">
                 <h2 class="tooltip">
@@ -100,6 +103,7 @@
                     <span id="fearGreedValue" class="pulse">--</span>
                     <span id="fearGreedLabel" class="gauge-label">Loading...</span>
                     <span id="fearGreedChange" class="gauge-change">--</span>
+                    <span id="fearGreedHistory" class="gauge-history">--</span>
                 </div>
                 <div class="sparkline-wrapper">
                     <canvas id="fgSparkline" class="sparkline"></canvas>

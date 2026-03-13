@@ -362,6 +362,55 @@ header h1 {
     overflow: hidden;
 }
 
+/* Alert Banner */
+.alert-banner {
+    margin: 1.5rem auto;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    animation: slideDown 0.4s ease-out, pulse 2s ease-in-out infinite;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.alert-banner.hidden {
+    display: none;
+}
+
+.alert-banner.extreme-fear {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05));
+    border: 2px solid var(--accent-green);
+    color: var(--accent-green);
+}
+
+.alert-banner.extreme-greed {
+    background: linear-gradient(135deg, rgba(255, 51, 102, 0.15), rgba(255, 51, 102, 0.05));
+    border: 2px solid var(--accent-red);
+    color: var(--accent-red);
+}
+
+.alert-banner.whale-active {
+    background: linear-gradient(135deg, rgba(77, 159, 255, 0.15), rgba(77, 159, 255, 0.05));
+    border: 2px solid var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .hero-card::before {
     content: '';
     position: absolute;
@@ -573,6 +622,15 @@ header h1 {
 
 .gauge-change.neutral {
     color: var(--text-secondary);
+}
+
+.gauge-history {
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    font-weight: 500;
 }
 
 /* BTC Price */
