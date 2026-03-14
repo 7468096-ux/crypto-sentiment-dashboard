@@ -235,6 +235,11 @@ async function loadData(retryCount = 0) {
         document.getElementById('fearGreedLabel').textContent = data.fearGreedLabel;
         drawGauge(fgValue);
         
+        // Update dynamic favicon
+        if (typeof window.updateFavicon === 'function') {
+            window.updateFavicon(fgValue);
+        }
+        
         // Calculate and display F&G change from yesterday
         const fgChangeElement = document.getElementById('fearGreedChange');
         if (data.fearGreedChange !== undefined) {
