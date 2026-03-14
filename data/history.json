@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-03-14",
+    "fearGreed": 16,
+    "btcPrice": 70602,
+    "change24h": -1.4307349560238518
+  },
+  {
     "date": "2026-03-13",
     "fearGreed": 15,
     "btcPrice": 71595,
@@ -34,11 +40,5 @@
     "fearGreed": 22,
     "btcPrice": 69141,
     "change24h": 1.87
-  },
-  {
-    "date": "2026-03-07",
-    "fearGreed": 19,
-    "btcPrice": 67873,
-    "change24h": -4.53
   }
 ]
