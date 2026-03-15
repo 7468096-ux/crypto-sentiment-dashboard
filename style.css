@@ -312,6 +312,33 @@ header h1 {
     transform: scale(0.95);
 }
 
+/* Copy Snapshot button */
+.copy-snapshot-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: var(--transition-base);
+}
+
+.copy-snapshot-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-green);
+    transform: translateY(-2px);
+    box-shadow: var(--glow-green);
+}
+
+.copy-snapshot-btn:active {
+    transform: scale(0.95);
+}
+
 /* Theme toggle button */
 .theme-toggle-btn {
     display: flex;
@@ -631,6 +658,27 @@ header h1 {
     color: var(--text-secondary);
     opacity: 0.7;
     font-weight: 500;
+}
+
+.days-in-zone {
+    display: block;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    color: var(--accent-green);
+    font-weight: 600;
+    text-align: center;
+    cursor: help;
+    transition: var(--transition-base);
+    display: inline-block;
+}
+
+.days-in-zone:hover {
+    background: rgba(0, 255, 136, 0.15);
+    transform: scale(1.02);
 }
 
 /* BTC Price */

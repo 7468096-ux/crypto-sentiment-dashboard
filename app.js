@@ -290,6 +290,9 @@ async function loadData(retryCount = 0) {
         // Render signal cards
         renderSignals(data.signals);
         
+        // Dispatch event for other scripts
+        document.dispatchEvent(new Event('dataRefreshed'));
+        
     } catch (error) {
         console.error('Error loading data:', error);
         
