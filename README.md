@@ -3,12 +3,31 @@
 Real-time cryptocurrency market sentiment analysis with Fear & Greed Index, whale activity, ETF flows, and macro indicators.
 
 ## Features
-- 📊 **Fear & Greed Index** — Visual gauge (0-100) with color coding
+
+### Core Metrics
+- 📊 **Fear & Greed Index** — Visual gauge (0-100) with color coding & sparklines
+- 💰 **Bitcoin Price** — Real-time BTC/USD with 24h change
+- 📈 **Interactive Price Chart** — 24H, 7D, 30D, 90D timeframes
+- 📅 **Historical Data Table** — Last 7 days trend analysis
 - 🐋 **Whale Activity** — On-chain accumulation tracking
-- 💰 **ETF Flows** — Institutional money movement
+- 💼 **ETF Flows** — Institutional money movement
 - 🏦 **Fed Policy** — Macro risk-on/risk-off signals
-- 🌙 **Dark Theme** — Mission Control style dashboard
-- 📱 **Responsive** — Works on mobile and desktop
+
+### UX/UI Features
+- 🌙 **Theme Switcher** — Dark/Light modes (keyboard shortcut: T)
+- ⌨️ **Keyboard Shortcuts** — Quick actions (press ? for help)
+  - **R** — Refresh data
+  - **C** — Copy BTC price
+  - **T** — Toggle theme
+  - **?** — Show shortcuts help
+- 🔔 **Alert Notifications** — Browser push for extreme Fear/Greed zones
+- 📸 **Copy Market Snapshot** — Share current state to clipboard
+- 📊 **CSV Export** — Download historical data for analysis
+- 📆 **Days in Zone Counter** — Track consecutive days in sentiment zones
+- 🎨 **Dynamic Gradients** — Hero card changes based on market sentiment
+- 📱 **Mobile Optimized** — Touch-friendly with larger tap targets
+- 🎯 **Tooltips** — Contextual help for all metrics
+- 🔄 **Auto Favicon** — Changes color based on Fear & Greed level
 
 ## Quick Start
 
@@ -66,8 +85,27 @@ Edit `data/sentiment.json` with fresh market data:
 - **Responsive design** with CSS Grid
 - **SVG gauge** with dynamic rendering
 
+## Recent Improvements (v2.0)
+
+### March 2026 Update
+- ✅ **Alert Notifications** — Push notifications for extreme zones (<20, >80)
+- ✅ **CSV Export** — Export historical data to CSV
+- ✅ **Dynamic Gradients** — Hero card visual feedback based on sentiment
+- ✅ **Mobile Enhancements** — Better touch targets, improved responsiveness
+- ✅ **Skeleton Loaders** — Smooth loading states
+- ✅ **Copy Snapshot** — One-click market summary to clipboard
+- ✅ **Days in Zone Counter** — Track sentiment persistence
+
+### Roadmap (Next)
+- [ ] **RSI Indicator** — Overbought/oversold momentum
+- [ ] **Volatility Index** — 30-day rolling volatility
+- [ ] **Stablecoin Dominance** — Market liquidity indicator
+- [ ] **Comparison Mode** — Compare two dates side-by-side
+- [ ] **Settings Panel** — Customize alerts & visibility
+- [ ] **PWA Offline Mode** — Works without internet
+
 ## Philosophy
 MVP → Ship fast → Iterate based on feedback
 
 ---
-Created: 2026-02-10 | Built with ⚡ by Mission Control
+Created: 2026-02-10 | Updated: 2026-03-16 | Built with ⚡ by Mission Control
