@@ -159,11 +159,38 @@ async function loadHistoricalComparison(currentFG) {
             historyElement.textContent = changeText;
         }
         
-        return { change7d, sevenDaysAgo };
+        return { change7d, sevenDaysAgo, history };
     } catch (error) {
         console.error('Error loading history:', error);
         return null;
     }
+}
+
+// Calculate consecutive days in current zone
+function calculateDaysInZone(currentFG, history) {
+    if (!history || history.length < 2) return 0;
+    
+    // Define zones: Fear (0-44), Neutral (45-55), Greed (56-100)
+    const getZone = (value) => {
+        if (value <= 44) return 'Fear';
+        if (value <= 55) return 'Neutral';
+        return 'Greed';
+    };
+    
+    const currentZone = getZone(currentFG);
+    let daysInZone = 1; // Today counts
+    
+    // Count backwards through history
+    for (let i = 0; i < history.length; i++) {
+        const historicalValue = history[i].fearGreed;
+        if (getZone(historicalValue) === currentZone) {
+            daysInZone++;
+        } else {
+            break; // Zone changed, stop counting
+        }
+    }
+    
+    return daysInZone;
 }
 
 // Show alert banner for extreme market conditions
@@ -255,8 +282,18 @@ async function loadData(retryCount = 0) {
         // Add fade-in animation to hero card
         document.querySelector('.hero-card').classList.add('fade-in');
         
-        // Load historical comparison
-        loadHistoricalComparison(fgValue);
+        // Load historical comparison and calculate days in zone
+        loadHistoricalComparison(fgValue).then(historyData => {
+            if (historyData && historyData.history) {
+                const daysInZone = calculateDaysInZone(fgValue, historyData.history);
+                const daysElement = document.getElementById('daysInZone');
+                if (daysElement && daysInZone > 0) {
+                    const zone = fgValue <= 44 ? 'Fear' : fgValue <= 55 ? 'Neutral' : 'Greed';
+                    daysElement.textContent = `${daysInZone} consecutive ${daysInZone === 1 ? 'day' : 'days'} in ${zone} zone`;
+                    daysElement.style.display = 'block';
+                }
+            }
+        });
         
         // Update BTC Price
         document.getElementById('btcPrice').textContent = formatCurrency(data.btcPrice);
