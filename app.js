@@ -327,6 +327,11 @@ async function loadData(retryCount = 0) {
         // Render signal cards
         renderSignals(data.signals);
         
+        // Render BTC enhanced metrics if available
+        if (typeof window.renderBTCMetrics === 'function') {
+            window.renderBTCMetrics(data);
+        }
+        
         // Dispatch event for other scripts
         document.dispatchEvent(new Event('dataRefreshed'));
         
