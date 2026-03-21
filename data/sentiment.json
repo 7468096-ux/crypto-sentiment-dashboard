@@ -1,25 +1,18 @@
 {
-  "lastUpdate": "2026-03-20",
-  "fearGreedIndex": 11,
+  "lastUpdate": "2026-03-21",
+  "fearGreedIndex": 12,
   "fearGreedLabel": "Extreme Fear",
-  "fearGreedChange": 0,
-  "btcPrice": 70827,
-  "btcChange24h": 0.92758,
-  "btcHigh24h": 70931,
-  "btcLow24h": 68934,
-  "btcATH": 126080,
-  "btcATHChangePercent": -43.8239,
-  "btcMarketCap": 1417346383982,
-  "btcVolume24h": 43058778407,
-  "btcDominance": 56.6,
+  "fearGreedChange": 1,
+  "btcPrice": 70694,
+  "btcChange24h": -0.22357264284870057,
   "whaleAccumulation": "+18% (accumulating)",
   "etfInflows": "$420M (cautious buying)",
   "fedRates": "3-3.25% (rate cuts expected Q2)",
   "overallSentiment": "extreme fear (buy signal)",
   "signals": [
-    {"name": "Fear & Greed", "value": 11, "signal": "buy
+    {"name": "Fear & Greed", "value": 12, "signal": "buy
 sell"},
-    {"name": "BTC Dominance", "value": "56.6%", "signal": "BTC season"},
+    {"name": "BTC Dominance", "value": "56.5%", "signal": "BTC season"},
     {"name": "Whale Activity", "value": "+18% (accumulating)", "signal": "accumulation phase"},
     {"name": "ETF Flows", "value": "$420M (cautious buying)", "signal": "cautious inflows"},
     {"name": "Fed Policy", "value": "3-3.25% (rate cuts expected Q2)", "signal": "risk-on environment"}
