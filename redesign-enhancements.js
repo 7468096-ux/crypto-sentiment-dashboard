@@ -420,6 +420,7 @@ Last Update: ${this.data.lastUpdate}
         this.showNotification('Refreshing...', 'Loading latest market data');
         await this.loadData();
         this.render();
+        this.renderHistorical(); // Ensure historical table is updated
         
         const zone = this.getZoneText(this.data.fearGreedIndex);
         this.triggerParticles(zone);

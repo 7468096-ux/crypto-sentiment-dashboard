@@ -417,19 +417,35 @@ body {
 }
 
 .data-table tbody tr {
-    transition: background 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .data-table tbody tr:hover {
-    background: rgba(212, 175, 55, 0.03);
+    background: rgba(212, 175, 55, 0.05);
+    transform: translateX(4px);
+}
+
+.data-table td strong {
+    font-weight: 600;
+    color: var(--white-pure);
 }
 
 .data-table .positive {
     color: var(--signal-buy);
+    font-weight: 600;
 }
 
 .data-table .negative {
     color: var(--signal-sell);
+    font-weight: 600;
+}
+
+/* Empty state */
+.data-table tbody td[colspan] {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--white-ghost);
+    font-style: italic;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

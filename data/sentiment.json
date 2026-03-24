@@ -4,17 +4,63 @@
   "fearGreedLabel": "Extreme Fear",
   "fearGreedChange": 3,
   "btcPrice": 71236,
-  "btcChange24h": 4.29560763078455,
+  "btcChange24h": 4.30,
+  "btcDominance": 56.6,
+  "athPrice": 108268,
+  "atlPrice": 67060,
   "whaleAccumulation": "+18% (accumulating)",
   "etfInflows": "$420M (cautious buying)",
   "fedRates": "3-3.25% (rate cuts expected Q2)",
   "overallSentiment": "extreme fear (buy signal)",
   "signals": [
-    {"name": "Fear & Greed", "value": 11, "signal": "buy
-sell"},
+    {"name": "Fear & Greed", "value": 11, "signal": "buy"},
     {"name": "BTC Dominance", "value": "56.6%", "signal": "BTC season"},
     {"name": "Whale Activity", "value": "+18% (accumulating)", "signal": "accumulation phase"},
     {"name": "ETF Flows", "value": "$420M (cautious buying)", "signal": "cautious inflows"},
     {"name": "Fed Policy", "value": "3-3.25% (rate cuts expected Q2)", "signal": "risk-on environment"}
+  ],
+  "historical": [
+    {
+      "date": "2026-03-24",
+      "fearGreedIndex": 11,
+      "btcPrice": 71236,
+      "btcChange24h": 4.30
+    },
+    {
+      "date": "2026-03-23",
+      "fearGreedIndex": 8,
+      "btcPrice": 68295,
+      "btcChange24h": -2.15
+    },
+    {
+      "date": "2026-03-22",
+      "fearGreedIndex": 14,
+      "btcPrice": 69800,
+      "btcChange24h": 1.87
+    },
+    {
+      "date": "2026-03-21",
+      "fearGreedIndex": 18,
+      "btcPrice": 68515,
+      "btcChange24h": -0.92
+    },
+    {
+      "date": "2026-03-20",
+      "fearGreedIndex": 22,
+      "btcPrice": 69150,
+      "btcChange24h": 3.45
+    },
+    {
+      "date": "2026-03-19",
+      "fearGreedIndex": 16,
+      "btcPrice": 66845,
+      "btcChange24h": -4.18
+    },
+    {
+      "date": "2026-03-18",
+      "fearGreedIndex": 29,
+      "btcPrice": 69760,
+      "btcChange24h": 2.63
+    }
   ]
 }

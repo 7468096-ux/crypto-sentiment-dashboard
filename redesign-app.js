@@ -17,10 +17,15 @@ class SentimentTerminal {
     async loadData() {
         try {
             const response = await fetch('data/sentiment.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             this.data = await response.json();
+            console.log('Data loaded successfully:', this.data);
         } catch (error) {
             console.error('Failed to load data:', error);
             this.data = this.getMockData();
+            console.log('Using mock data');
         }
     }
 
@@ -139,10 +144,19 @@ class SentimentTerminal {
 
     renderHistorical() {
         const { historical } = this.data;
-        if (!historical || historical.length === 0) return;
-        
         const tbody = document.getElementById('historicalData');
+        
+        if (!tbody) {
+            console.error('Historical table body not found');
+            return;
+        }
+        
         tbody.innerHTML = '';
+        
+        if (!historical || historical.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--white-ghost); padding: 2rem;">No historical data available</td></tr>';
+            return;
+        }
         
         historical.slice(0, 7).forEach(entry => {
             const row = document.createElement('tr');
@@ -155,15 +169,17 @@ class SentimentTerminal {
             
             row.innerHTML = `
                 <td>${entry.date}</td>
-                <td>${entry.fearGreedIndex}</td>
+                <td><strong>${entry.fearGreedIndex}</strong></td>
                 <td>${this.getZoneText(entry.fearGreedIndex)}</td>
-                <td>$${entry.btcPrice.toLocaleString()}</td>
-                <td class="${changeClass}">${changeSign}${change.toFixed(2)}%</td>
+                <td><strong>$${entry.btcPrice.toLocaleString()}</strong></td>
+                <td class="${changeClass}"><strong>${changeSign}${change.toFixed(2)}%</strong></td>
                 <td>${signal}</td>
             `;
             
             tbody.appendChild(row);
         });
+        
+        console.log(`Rendered ${historical.length} historical entries`);
     }
 
     getSignalFromIndex(value) {
