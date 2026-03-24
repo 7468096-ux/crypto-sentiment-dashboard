@@ -1,0 +1,544 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CRYPTO SENTIMENT TERMINAL — LUXURY BRUTALISM
+   Designed by Alice (Mission Control) with anthropics-frontend-design
+   Philosophy: Trading terminal aesthetics meets refined luxury
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:root {
+    /* Luxury Terminal Palette */
+    --gold-primary: #D4AF37;
+    --gold-dim: #8B7722;
+    --black-deep: #0a0a0a;
+    --black-panel: #111111;
+    --black-border: #1a1a1a;
+    --white-pure: #ffffff;
+    --white-dim: #e5e5e5;
+    --white-ghost: #999999;
+    
+    /* Signal Colors */
+    --signal-buy: #22c55e;
+    --signal-sell: #ef4444;
+    --signal-neutral: #fbbf24;
+    
+    /* Typography */
+    --font-display: 'Cormorant', serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    
+    /* Spacing System */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2.5rem;
+    --space-xl: 4rem;
+    
+    /* Animation Timing */
+    --ease-luxury: cubic-bezier(0.4, 0.0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-mono);
+    background: var(--black-deep);
+    color: var(--white-dim);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    
+    /* Subtle grain texture */
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.01) 0px,
+            transparent 1px,
+            transparent 2px,
+            rgba(255, 255, 255, 0.01) 3px
+        );
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ASYMMETRIC GRID LAYOUT
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.terminal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 2px;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+    min-height: 100vh;
+}
+
+.hero-section {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    background: var(--black-panel);
+    border: 1px solid var(--black-border);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative corner accent */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    border-top: 2px solid var(--gold-primary);
+    border-right: 2px solid var(--gold-primary);
+    opacity: 0.3;
+}
+
+.data-panels {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+}
+
+.historical-section {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    background: var(--black-panel);
+    border: 1px solid var(--black-border);
+    padding: var(--space-lg);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TERMINAL HEADER — REFINED LUXURY
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.terminal-header {
+    margin-bottom: var(--space-xl);
+    animation: fadeInDown 0.8s var(--ease-luxury) both;
+}
+
+.terminal-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+    color: var(--white-pure);
+}
+
+.title-prefix {
+    color: var(--gold-primary);
+    font-size: 0.6em;
+    margin-right: 0.2em;
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.title-main {
+    font-weight: 600;
+}
+
+.title-suffix {
+    font-weight: 300;
+    color: var(--white-ghost);
+}
+
+.terminal-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-dim);
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FEAR & GREED DISPLAY — HERO METRIC
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.fear-greed-display {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeIn 1s var(--ease-luxury) 0.3s both;
+}
+
+.metric-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--white-ghost);
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+}
+
+.metric-value {
+    font-size: clamp(6rem, 12vw, 10rem);
+    font-weight: 600;
+    font-family: var(--font-mono);
+    line-height: 1;
+    color: var(--gold-primary);
+    margin-bottom: var(--space-xs);
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    animation: numberAppear 0.6s var(--ease-bounce) 0.6s both;
+}
+
+.metric-zone {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--white-pure);
+    margin-bottom: var(--space-lg);
+    text-transform: uppercase;
+}
+
+.gauge-visual {
+    width: 100%;
+    max-width: 400px;
+    margin: var(--space-lg) auto;
+    opacity: 0;
+    animation: fadeIn 0.8s var(--ease-luxury) 1s both;
+}
+
+#gaugeArc {
+    transition: stroke-dashoffset 1.2s var(--ease-luxury);
+}
+
+#gaugeLine {
+    transform-origin: 100px 80px;
+    transition: all 1.2s var(--ease-luxury);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SIGNAL STATUS INDICATOR
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.signal-status {
+    animation: fadeIn 1s var(--ease-luxury) 1.2s both;
+}
+
+.signal-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border: 1px solid var(--black-border);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.signal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--signal-neutral);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.signal-indicator.buy .signal-dot {
+    background: var(--signal-buy);
+}
+
+.signal-indicator.sell .signal-dot {
+    background: var(--signal-sell);
+}
+
+.signal-text {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   DATA PANELS — MODULAR INFORMATION BLOCKS
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.data-panel {
+    background: var(--black-panel);
+    border: 1px solid var(--black-border);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    animation: fadeInUp 0.6s var(--ease-luxury) both;
+}
+
+.data-panel:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-2px);
+}
+
+.data-panel:nth-child(1) { animation-delay: 0.1s; }
+.data-panel:nth-child(2) { animation-delay: 0.2s; }
+.data-panel:nth-child(3) { animation-delay: 0.3s; }
+.data-panel:nth-child(4) { animation-delay: 0.4s; }
+.data-panel:nth-child(5) { animation-delay: 0.5s; }
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--white-ghost);
+    text-transform: uppercase;
+}
+
+.panel-icon {
+    font-size: 1.2rem;
+    color: var(--gold-primary);
+}
+
+.panel-value {
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 600;
+    color: var(--white-pure);
+    font-family: var(--font-mono);
+    line-height: 1;
+}
+
+.panel-value.small-text {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--white-dim);
+}
+
+.panel-change {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.panel-change.positive {
+    color: var(--signal-buy);
+}
+
+.panel-change.negative {
+    color: var(--signal-sell);
+}
+
+.panel-subtext {
+    font-size: 0.75rem;
+    color: var(--white-ghost);
+}
+
+.refresh-button {
+    margin-top: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold-primary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.refresh-button:hover {
+    background: var(--gold-primary);
+    color: var(--black-deep);
+    border-color: var(--gold-primary);
+}
+
+.refresh-button span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.refresh-button:hover span {
+    transform: rotate(180deg);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HISTORICAL DATA TABLE — TERMINAL AESTHETICS
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--white-pure);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+}
+
+.title-decoration {
+    color: var(--gold-dim);
+    font-size: 0.6em;
+    opacity: 0.5;
+}
+
+.table-container {
+    overflow-x: auto;
+    border: 1px solid var(--black-border);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.data-table thead {
+    background: rgba(212, 175, 55, 0.05);
+    border-bottom: 1px solid var(--gold-dim);
+}
+
+.data-table th {
+    padding: var(--space-sm);
+    text-align: left;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    font-size: 0.7rem;
+    color: var(--gold-primary);
+    text-transform: uppercase;
+}
+
+.data-table td {
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--black-border);
+    color: var(--white-dim);
+}
+
+.data-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.data-table tbody tr:hover {
+    background: rgba(212, 175, 55, 0.03);
+}
+
+.data-table .positive {
+    color: var(--signal-buy);
+}
+
+.data-table .negative {
+    color: var(--signal-sell);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ANIMATIONS — SOPHISTICATED MOTION
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes numberAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE DESIGN — MOBILE FIRST
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 1024px) {
+    .terminal-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        padding: var(--space-sm);
+    }
+    
+    .hero-section {
+        grid-column: 1;
+        grid-row: 1;
+        padding: var(--space-lg);
+    }
+    
+    .data-panels {
+        grid-column: 1;
+        grid-row: 2;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .historical-section {
+        grid-column: 1;
+        grid-row: 3;
+    }
+    
+    .terminal-title {
+        font-size: clamp(2.5rem, 8vw, 4rem);
+    }
+    
+    .metric-value {
+        font-size: clamp(4rem, 15vw, 8rem);
+    }
+}
+
+@media (max-width: 640px) {
+    .data-panels {
+        grid-template-columns: 1fr;
+    }
+    
+    .terminal-title {
+        font-size: 2.5rem;
+    }
+    
+    .data-table {
+        font-size: 0.75rem;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: var(--space-xs);
+    }
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Sentiment Terminal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;600&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="redesign-style.css">
+</head>
+<body>
+    <div class="terminal-grid">
+        <!-- Left Column: Hero Section -->
+        <section class="hero-section">
+            <header class="terminal-header">
+                <h1 class="terminal-title">
+                    <span class="title-prefix">◆</span>
+                    <span class="title-main">Sentiment</span>
+                    <span class="title-suffix">Terminal</span>
+                </h1>
+                <p class="terminal-subtitle">CRYPTO MARKET INTELLIGENCE</p>
+            </header>
+
+            <div class="fear-greed-display">
+                <div class="metric-label">FEAR & GREED INDEX</div>
+                <div class="metric-value" id="fearGreedValue">—</div>
+                <div class="metric-zone" id="fearGreedZone">INITIALIZING</div>
+                
+                <div class="gauge-visual">
+                    <svg viewBox="0 0 200 100" id="gaugeSvg">
+                        <defs>
+                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#fbbf24;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 20 80 A 80 80 0 0 1 180 80" 
+                              fill="none" 
+                              stroke="#1a1a1a" 
+                              stroke-width="2" 
+                              opacity="0.3"/>
+                        <path id="gaugeArc" 
+                              d="M 20 80 A 80 80 0 0 1 180 80" 
+                              fill="none" 
+                              stroke="url(#gaugeGradient)" 
+                              stroke-width="4" 
+                              stroke-linecap="round"
+                              stroke-dasharray="251.2"
+                              stroke-dashoffset="251.2"/>
+                        <line id="gaugeLine" 
+                              x1="100" y1="80" 
+                              x2="100" y2="20" 
+                              stroke="#D4AF37" 
+                              stroke-width="2"
+                              opacity="0"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="signal-status">
+                <div class="signal-indicator" id="signalIndicator">
+                    <span class="signal-dot"></span>
+                    <span class="signal-text">SIGNAL: NEUTRAL</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Column: Data Panels -->
+        <section class="data-panels">
+            <!-- BTC Price Panel -->
+            <div class="data-panel btc-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">₿</span>
+                    <span class="panel-label">BITCOIN</span>
+                </div>
+                <div class="panel-value" id="btcPrice">$—</div>
+                <div class="panel-change" id="btcChange">—</div>
+            </div>
+
+            <!-- Market Dominance -->
+            <div class="data-panel dominance-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">◈</span>
+                    <span class="panel-label">BTC DOMINANCE</span>
+                </div>
+                <div class="panel-value" id="btcDominance">—%</div>
+                <div class="panel-subtext">of total market cap</div>
+            </div>
+
+            <!-- ATH Distance -->
+            <div class="data-panel ath-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">▲</span>
+                    <span class="panel-label">ATH DISTANCE</span>
+                </div>
+                <div class="panel-value" id="athDistance">—%</div>
+                <div class="panel-subtext" id="athValue">Peak: $—</div>
+            </div>
+
+            <!-- ATL Distance -->
+            <div class="data-panel atl-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">▼</span>
+                    <span class="panel-label">ATL DISTANCE</span>
+                </div>
+                <div class="panel-value" id="atlDistance">—%</div>
+                <div class="panel-subtext" id="atlValue">Low: $—</div>
+            </div>
+
+            <!-- Last Update -->
+            <div class="data-panel update-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">◐</span>
+                    <span class="panel-label">LAST UPDATE</span>
+                </div>
+                <div class="panel-value small-text" id="lastUpdate">—</div>
+                <button class="refresh-button" id="refreshBtn">
+                    <span>⟳</span> REFRESH
+                </button>
+            </div>
+        </section>
+
+        <!-- Bottom: Historical Data Table -->
+        <section class="historical-section">
+            <h3 class="section-title">
+                <span class="title-decoration">━━</span>
+                HISTORICAL SENTIMENT
+                <span class="title-decoration">━━</span>
+            </h3>
+            <div class="table-container">
+                <table class="data-table" id="historicalTable">
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>INDEX</th>
+                            <th>ZONE</th>
+                            <th>BTC PRICE</th>
+                            <th>CHANGE</th>
+                            <th>SIGNAL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historicalData">
+                        <!-- Data populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="redesign-app.js"></script>
+</body>
+</html>
