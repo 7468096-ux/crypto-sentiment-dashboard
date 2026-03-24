@@ -422,6 +422,11 @@ Last Update: ${this.data.lastUpdate}
         this.render();
         this.renderHistorical(); // Ensure historical table is updated
         
+        // Update chart
+        if (typeof window.updateChart === 'function') {
+            window.updateChart(this.data);
+        }
+        
         const zone = this.getZoneText(this.data.fearGreedIndex);
         this.triggerParticles(zone);
     }

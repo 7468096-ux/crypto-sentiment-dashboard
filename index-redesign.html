@@ -135,6 +135,13 @@
                 HISTORICAL SENTIMENT
                 <span class="title-decoration">━━</span>
             </h3>
+            
+            <!-- Chart Section -->
+            <div class="chart-container">
+                <canvas id="historicalChart"></canvas>
+            </div>
+            
+            <!-- Table Section -->
             <div class="table-container">
                 <table class="data-table" id="historicalTable">
                     <thead>
@@ -155,7 +162,9 @@
         </section>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="redesign-app.js"></script>
     <script src="redesign-enhancements.js"></script>
+    <script src="redesign-chart.js"></script>
 </body>
 </html>

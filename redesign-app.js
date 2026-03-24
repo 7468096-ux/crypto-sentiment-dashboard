@@ -49,6 +49,14 @@ class SentimentTerminal {
         this.renderATHATL();
         this.renderLastUpdate();
         this.renderHistorical();
+        
+        // Make data available globally for chart
+        window.terminalData = this.data;
+        
+        // Update chart if it exists
+        if (typeof window.updateChart === 'function') {
+            window.updateChart(this.data);
+        }
     }
 
     renderFearGreed() {
