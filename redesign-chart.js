@@ -22,15 +22,14 @@ class HistoricalChart {
             return;
         }
 
-        // Prepare data (reverse to show oldest first)
-        const reversed = [...historical].reverse();
-        const labels = reversed.map(entry => {
+        // Prepare data (chronological order: Jan → Mar)
+        const labels = historical.map(entry => {
             const date = new Date(entry.date);
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         });
         
-        const fearGreedData = reversed.map(entry => entry.fearGreedIndex);
-        const btcPriceData = reversed.map(entry => entry.btcPrice);
+        const fearGreedData = historical.map(entry => entry.fearGreedIndex);
+        const btcPriceData = historical.map(entry => entry.btcPrice);
 
         // Background zones plugin
         const backgroundZones = {
@@ -184,8 +183,8 @@ class HistoricalChart {
                                 if (context.length > 0) {
                                     const index = context[0].dataIndex;
                                     const historical = window.terminalData?.historical;
-                                    if (historical && historical[historical.length - 1 - index]) {
-                                        const entry = historical[historical.length - 1 - index];
+                                    if (historical && historical[index]) {
+                                        const entry = historical[index];
                                         const change = entry.btcChange24h;
                                         const sign = change >= 0 ? '+' : '';
                                         const color = change >= 0 ? '🟢' : '🔴';
@@ -324,14 +323,13 @@ class HistoricalChart {
         const historical = data.historical || [];
         if (historical.length === 0) return;
 
-        const reversed = [...historical].reverse();
-        const labels = reversed.map(entry => {
+        const labels = historical.map(entry => {
             const date = new Date(entry.date);
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         });
         
-        const fearGreedData = reversed.map(entry => entry.fearGreedIndex);
-        const btcPriceData = reversed.map(entry => entry.btcPrice);
+        const fearGreedData = historical.map(entry => entry.fearGreedIndex);
+        const btcPriceData = historical.map(entry => entry.btcPrice);
 
         this.chart.data.labels = labels;
         this.chart.data.datasets[0].data = fearGreedData;
