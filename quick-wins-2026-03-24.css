@@ -1,0 +1,272 @@
+/* QUICK WINS - 2026-03-24 */
+/* Enhanced visual polish + better extreme zone feedback */
+
+/* 1. Enhanced Extreme Zone Visual Feedback */
+.gauge-container[data-zone="extreme-fear"],
+.gauge-container[data-zone="fear"] {
+    position: relative;
+}
+
+.gauge-container[data-zone="extreme-fear"]::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, 
+        rgba(0, 255, 136, 0.15), 
+        rgba(0, 255, 136, 0.05)
+    );
+    border-radius: 16px;
+    z-index: -1;
+    animation: pulse-green 2s ease-in-out infinite;
+}
+
+.gauge-container[data-zone="extreme-greed"]::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, 
+        rgba(255, 51, 102, 0.15), 
+        rgba(255, 51, 102, 0.05)
+    );
+    border-radius: 16px;
+    z-index: -1;
+    animation: pulse-red 2s ease-in-out infinite;
+}
+
+@keyframes pulse-green {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes pulse-red {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* 2. Better Signal Card Hierarchy */
+.signal-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.signal-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+        0 12px 24px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.signal-card.buy-signal {
+    background: linear-gradient(135deg, 
+        rgba(0, 255, 136, 0.08) 0%,
+        var(--bg-card) 100%
+    );
+    border-left: 3px solid var(--accent-green);
+}
+
+.signal-card.sell-signal {
+    background: linear-gradient(135deg, 
+        rgba(255, 51, 102, 0.08) 0%,
+        var(--bg-card) 100%
+    );
+    border-left: 3px solid var(--accent-red);
+}
+
+/* 3. Improved Typography Hierarchy */
+.hero-card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+}
+
+.hero-card .price {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+}
+
+#fearGreedValue {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+/* 4. Better Loading States */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--bg-card) 0%,
+        var(--bg-card-hover) 50%,
+        var(--bg-card) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: 8px;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* 5. Enhanced Sparklines */
+.sparkline-wrapper {
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+[data-theme="light"] .sparkline-wrapper {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+/* 6. Better Mobile Touch Targets */
+@media (max-width: 768px) {
+    .header-controls button {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0.75rem 1rem;
+    }
+    
+    .chart-period {
+        min-width: 52px;
+        min-height: 44px;
+        font-size: 0.9rem;
+    }
+    
+    .signal-card {
+        padding: 1.5rem;
+    }
+}
+
+/* 7. Enhanced Tooltips */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip-text {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .tooltip-text {
+    background: rgba(26, 26, 26, 0.95);
+}
+
+.tooltip:hover .tooltip-text {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-12px);
+}
+
+.tooltip-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.95);
+}
+
+/* 8. Smooth Data Updates */
+.data-updating {
+    animation: data-fade 0.3s ease;
+}
+
+@keyframes data-fade {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* 9. Better Focus States (Accessibility) */
+button:focus-visible,
+.chart-period:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* 10. Enhanced Sentiment Badge */
+.sentiment-badge {
+    background: linear-gradient(135deg, 
+        rgba(77, 159, 255, 0.1) 0%,
+        transparent 100%
+    );
+    border: 1px solid rgba(77, 159, 255, 0.2);
+    padding: 1.25rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.sentiment-badge:hover {
+    background: linear-gradient(135deg, 
+        rgba(77, 159, 255, 0.15) 0%,
+        transparent 100%
+    );
+    border-color: rgba(77, 159, 255, 0.3);
+}
+
+/* 11. Glass-morphism effect for hero card */
+.hero-card {
+    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg,
+        rgba(26, 26, 26, 0.8) 0%,
+        rgba(26, 26, 26, 0.6) 100%
+    );
+}
+
+[data-theme="light"] .hero-card {
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.7) 100%
+    );
+}
+
+/* 12. Improved Historical Table */
+.history-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.history-table tbody tr:hover {
+    background: var(--bg-card-hover);
+    transform: scale(1.01);
+}
+
+/* 13. Quick Action Tooltips */
+.copy-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 255, 136, 0.95);
+    color: #0a0a0a;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
+}
+
+.copy-notification.show {
+    opacity: 1;
+}
