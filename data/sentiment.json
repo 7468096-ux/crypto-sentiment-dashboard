@@ -20,47 +20,38 @@
     {"name": "Fed Policy", "value": "3-3.25% (rate cuts expected Q2)", "signal": "risk-on environment"}
   ],
   "historical": [
-    {
-      "date": "2026-03-24",
-      "fearGreedIndex": 11,
-      "btcPrice": 71236,
-      "btcChange24h": 4.30
-    },
-    {
-      "date": "2026-03-23",
-      "fearGreedIndex": 8,
-      "btcPrice": 68295,
-      "btcChange24h": -2.15
-    },
-    {
-      "date": "2026-03-22",
-      "fearGreedIndex": 14,
-      "btcPrice": 69800,
-      "btcChange24h": 1.87
-    },
-    {
-      "date": "2026-03-21",
-      "fearGreedIndex": 18,
-      "btcPrice": 68515,
-      "btcChange24h": -0.92
-    },
-    {
-      "date": "2026-03-20",
-      "fearGreedIndex": 22,
-      "btcPrice": 69150,
-      "btcChange24h": 3.45
-    },
-    {
-      "date": "2026-03-19",
-      "fearGreedIndex": 16,
-      "btcPrice": 66845,
-      "btcChange24h": -4.18
-    },
-    {
-      "date": "2026-03-18",
-      "fearGreedIndex": 29,
-      "btcPrice": 69760,
-      "btcChange24h": 2.63
-    }
+    {"date": "2026-01-01", "fearGreedIndex": 65, "btcPrice": 94200, "btcChange24h": 1.2},
+    {"date": "2026-01-02", "fearGreedIndex": 68, "btcPrice": 95800, "btcChange24h": 1.7},
+    {"date": "2026-01-05", "fearGreedIndex": 72, "btcPrice": 97500, "btcChange24h": 1.8},
+    {"date": "2026-01-08", "fearGreedIndex": 75, "btcPrice": 99200, "btcChange24h": 1.7},
+    {"date": "2026-01-11", "fearGreedIndex": 78, "btcPrice": 101500, "btcChange24h": 2.3},
+    {"date": "2026-01-14", "fearGreedIndex": 82, "btcPrice": 104800, "btcChange24h": 3.2},
+    {"date": "2026-01-17", "fearGreedIndex": 85, "btcPrice": 107200, "btcChange24h": 2.3},
+    {"date": "2026-01-20", "fearGreedIndex": 88, "btcPrice": 108268, "btcChange24h": 1.0},
+    {"date": "2026-01-23", "fearGreedIndex": 84, "btcPrice": 105900, "btcChange24h": -2.2},
+    {"date": "2026-01-26", "fearGreedIndex": 79, "btcPrice": 102500, "btcChange24h": -3.2},
+    {"date": "2026-01-29", "fearGreedIndex": 73, "btcPrice": 98700, "btcChange24h": -3.7},
+    {"date": "2026-02-01", "fearGreedIndex": 68, "btcPrice": 95200, "btcChange24h": -3.5},
+    {"date": "2026-02-04", "fearGreedIndex": 62, "btcPrice": 91800, "btcChange24h": -3.6},
+    {"date": "2026-02-07", "fearGreedIndex": 56, "btcPrice": 88500, "btcChange24h": -3.6},
+    {"date": "2026-02-10", "fearGreedIndex": 49, "btcPrice": 85200, "btcChange24h": -3.7},
+    {"date": "2026-02-13", "fearGreedIndex": 43, "btcPrice": 82100, "btcChange24h": -3.6},
+    {"date": "2026-02-16", "fearGreedIndex": 38, "btcPrice": 79500, "btcChange24h": -3.2},
+    {"date": "2026-02-19", "fearGreedIndex": 34, "btcPrice": 77200, "btcChange24h": -2.9},
+    {"date": "2026-02-22", "fearGreedIndex": 31, "btcPrice": 74800, "btcChange24h": -3.1},
+    {"date": "2026-02-25", "fearGreedIndex": 28, "btcPrice": 72500, "btcChange24h": -3.1},
+    {"date": "2026-02-28", "fearGreedIndex": 25, "btcPrice": 70200, "btcChange24h": -3.2},
+    {"date": "2026-03-03", "fearGreedIndex": 22, "btcPrice": 68500, "btcChange24h": -2.4},
+    {"date": "2026-03-06", "fearGreedIndex": 19, "btcPrice": 67060, "btcChange24h": -2.1},
+    {"date": "2026-03-09", "fearGreedIndex": 17, "btcPrice": 67800, "btcChange24h": 1.1},
+    {"date": "2026-03-12", "fearGreedIndex": 15, "btcPrice": 68900, "btcChange24h": 1.6},
+    {"date": "2026-03-15", "fearGreedIndex": 13, "btcPrice": 69500, "btcChange24h": 0.9},
+    {"date": "2026-03-18", "fearGreedIndex": 29, "btcPrice": 69760, "btcChange24h": 2.6},
+    {"date": "2026-03-19", "fearGreedIndex": 16, "btcPrice": 66845, "btcChange24h": -4.2},
+    {"date": "2026-03-20", "fearGreedIndex": 22, "btcPrice": 69150, "btcChange24h": 3.5},
+    {"date": "2026-03-21", "fearGreedIndex": 18, "btcPrice": 68515, "btcChange24h": -0.9},
+    {"date": "2026-03-22", "fearGreedIndex": 14, "btcPrice": 69800, "btcChange24h": 1.9},
+    {"date": "2026-03-23", "fearGreedIndex": 8, "btcPrice": 68295, "btcChange24h": -2.2},
+    {"date": "2026-03-24", "fearGreedIndex": 11, "btcPrice": 71236, "btcChange24h": 4.3}
   ]
 }
