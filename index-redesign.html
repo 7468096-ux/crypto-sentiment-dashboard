@@ -8,8 +8,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;600&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="redesign-style.css">
+    <link rel="stylesheet" href="redesign-enhancements.css">
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">INITIALIZING TERMINAL</div>
+    </div>
     <div class="terminal-grid">
         <!-- Left Column: Hero Section -->
         <section class="hero-section">
@@ -150,5 +156,6 @@
     </div>
 
     <script src="redesign-app.js"></script>
+    <script src="redesign-enhancements.js"></script>
 </body>
 </html>
